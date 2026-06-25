@@ -1,0 +1,12 @@
+{
+	"name": "errors-adapters",
+	"private": true,
+	"description": "Monorepo root for @absolutejs/errors issue-store adapters. Subpackages live in ./<name>/ and publish independently.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/absolutejs/errors-adapters.git"
+	},
+	"license": "Apache-2.0",
+	"author": "Alex Kahn",
+	"workspaces": ["postgres"]
+}

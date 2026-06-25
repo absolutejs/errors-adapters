@@ -1,0 +1,75 @@
+{
+  "name": "@absolutejs/errors-postgres",
+  "version": "0.0.3",
+  "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors. Durable grouped issues + event timeline with new/regression detection in one atomic CTE upsert. Accepts any postgres-js-compatible tag template (porsager/postgres OR @neondatabase/serverless). Lazy schema, jsonb tags/extra, no ORM. Returns Effect<_, IssueStoreError>.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/absolutejs/errors-adapters.git",
+    "directory": "postgres"
+  },
+  "homepage": "https://github.com/absolutejs/errors-adapters/tree/main/postgres",
+  "bugs": {
+    "url": "https://github.com/absolutejs/errors-adapters/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Alex Kahn",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "absolutejs",
+    "errors",
+    "issues",
+    "postgres",
+    "neon",
+    "effect",
+    "effect-ts",
+    "sentry",
+    "error-tracking"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && bun build src/index.ts --outdir dist --sourcemap --target=bun --external @absolutejs/errors --external effect --external postgres --external @neondatabase/serverless && tsc --project tsconfig.build.json",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"./**/*.{ts,json,md}\"",
+    "release": "bun run format && bun run build && bun publish"
+  },
+  "peerDependencies": {
+    "@absolutejs/errors": ">= 0.3.0",
+    "@neondatabase/serverless": ">= 0.10.0",
+    "effect": "^3.21.0",
+    "postgres": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@neondatabase/serverless": {
+      "optional": true
+    },
+    "postgres": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@absolutejs/errors": "^0.3.0",
+    "@electric-sql/pglite": "^0.5.3",
+    "@types/bun": "1.3.14",
+    "effect": "^3.21.4",
+    "postgres": "^3.4.9",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}
