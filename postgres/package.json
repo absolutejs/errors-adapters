@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/errors-postgres",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors. Durable grouped issues + event timeline with new/regression detection in one atomic CTE upsert. Accepts any postgres-js-compatible tag template (porsager/postgres OR @neondatabase/serverless). Lazy schema, jsonb tags/extra, no ORM. Returns Effect<_, IssueStoreError>.",
   "repository": {
     "type": "git",
