@@ -36,6 +36,14 @@ import {
 } from "@absolutejs/errors";
 import { Effect, Option } from "effect";
 
+export {
+  createDrizzleIssueStore,
+  errorDrizzleSchema,
+  errorEvents,
+  errorIssues,
+  type CreateDrizzleIssueStoreOptions,
+} from "./drizzle";
+
 /**
  * A `postgres-js` (`postgres('…')`) or Neon serverless (`neon('…')`)
  * tag-template client. Declared locally (rather than `import type { Sql } from

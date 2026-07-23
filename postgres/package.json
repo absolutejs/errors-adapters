@@ -1,7 +1,7 @@
 {
   "name": "@absolutejs/errors-postgres",
-  "version": "0.0.4",
-  "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors. Durable grouped issues + event timeline with new/regression detection in one atomic CTE upsert. Accepts any postgres-js-compatible tag template (porsager/postgres OR @neondatabase/serverless). Lazy schema, jsonb tags/extra, no ORM. Returns Effect<_, IssueStoreError>.",
+  "version": "0.0.5",
+  "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors with first-class Drizzle and tagged-template adapters.",
   "repository": {
     "type": "git",
     "url": "https://github.com/absolutejs/errors-adapters.git",
@@ -35,7 +35,7 @@
     "error-tracking"
   ],
   "scripts": {
-    "build": "rm -rf dist && bun build src/index.ts src/manifest.ts --outdir dist --sourcemap --target=bun --external @absolutejs/errors --external effect --external postgres --external @neondatabase/serverless && tsc --project tsconfig.build.json && absolute-manifest emit",
+    "build": "rm -rf dist && bun build src/index.ts src/manifest.ts --outdir dist --sourcemap --target=bun --external @absolutejs/errors --external drizzle-orm --external 'drizzle-orm/*' --external effect --external postgres --external @neondatabase/serverless && tsc --project tsconfig.build.json && absolute-manifest emit",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"./**/*.{ts,json,md}\"",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@absolutejs/errors": "^0.3.0",
-    "@electric-sql/pglite": "^0.5.3",
+    "@electric-sql/pglite": "0.3.14",
     "@types/bun": "1.3.14",
     "effect": "^3.21.4",
     "postgres": "^3.4.9",
@@ -83,6 +83,7 @@
   ],
   "dependencies": {
     "@absolutejs/manifest": "^0.1.0",
-    "@sinclair/typebox": "^0.34.0"
+    "@sinclair/typebox": "^0.34.0",
+    "drizzle-orm": "1.0.0-rc.4"
   }
 }

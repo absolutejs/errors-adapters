@@ -10,12 +10,48 @@ export const manifest = defineManifest<CreatePostgresIssueStoreOptions>()({
     accent: "#336791",
     category: "observability",
     description:
-      "Postgres-backed, Effect-native `IssueStore` for `@absolutejs/errors`. Durable grouped issues + event timeline with new/regression detection in one atomic CTE upsert. Accepts any postgres-js-compatible tag template (porsager/postgres or @neondatabase/serverless). Lazy schema, jsonb tags/extra, no ORM.",
+      "Postgres-backed, Effect-native `IssueStore` for `@absolutejs/errors` with schema-derived Drizzle and tagged-template adapters, durable grouped issues, sampled event timelines, regression detection, and portable JSONB.",
     docsUrl: "https://github.com/absolutejs/errors-adapters/tree/main/postgres",
     name: "@absolutejs/errors-postgres",
     tagline: "Keep your error history in your Postgres database.",
   },
   implements: [
+    defineImplementation<never>()({
+      contract: "errors/issue-store",
+      factory: "createDrizzleIssueStore",
+      from: "@absolutejs/errors-postgres",
+      requires: {
+        peers: [
+          {
+            name: "drizzle-orm",
+            range: ">=1.0.0-rc.4",
+            reason: "Schema-derived Postgres persistence",
+          },
+          {
+            name: "effect",
+            range: "^3.21.0",
+            reason: "Effect runtime shared with @absolutejs/errors",
+          },
+        ],
+        services: [
+          {
+            description:
+              "Stores grouped issues and occurrence timelines through the application's Drizzle database",
+            id: "postgres",
+          },
+        ],
+      },
+      title: "Drizzle Postgres (application-managed schema)",
+      wiring: {
+        code: "createDrizzleIssueStore({ db })",
+        imports: [
+          {
+            from: "@absolutejs/errors-postgres",
+            names: ["createDrizzleIssueStore"],
+          },
+        ],
+      },
+    }),
     defineImplementation<CreatePostgresIssueStoreOptions>()({
       contract: "errors/issue-store",
       factory: "createPostgresIssueStore",
@@ -81,6 +117,18 @@ export const manifest = defineManifest<CreatePostgresIssueStoreOptions>()({
         ],
       },
     }),
+  ],
+  lifecycle: [
+    {
+      docsUrl:
+        "https://github.com/absolutejs/errors-adapters/tree/main/postgres#drizzle",
+      id: "migrate",
+      idempotent: true,
+      kind: "migration",
+      title:
+        "Re-export errorIssues and errorEvents from your Drizzle schema, then apply the migration",
+      when: "before-first-run",
+    },
   ],
   settings: Type.Object({}),
   wiring: [],

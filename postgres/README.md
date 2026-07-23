@@ -22,6 +22,27 @@ whichever driver you use.
 
 ## Usage
 
+### Drizzle
+
+Re-export the package tables from your application schema and manage them with
+your normal migration workflow:
+
+```ts
+export { errorEvents, errorIssues } from "@absolutejs/errors-postgres";
+```
+
+```ts
+import { createDrizzleIssueStore } from "@absolutejs/errors-postgres";
+
+const store = createDrizzleIssueStore({ db });
+```
+
+The Drizzle store uses transactions for atomic event/group updates, portable
+native JSONB for tags and extra context, row locking for regression detection,
+and the same Effect error channel as the tagged-template adapter.
+
+### Tagged-template compatibility
+
 ```ts
 import postgres from "postgres";
 import { createErrorTracker } from "@absolutejs/errors";
@@ -90,8 +111,9 @@ Indexes: `(project, last_seen DESC)` and `(project, state)` on issues;
 (→ `@absolutejs/replay`) are stored per event so a dashboard can cross-link
 an issue to its exact trace and DOM replay.
 
-No ORM — one raw tagged-template module against any postgres-js-compatible
-client.
+Choose the schema-derived Drizzle store for application-managed databases or
+the raw tagged-template compatibility store for lightweight and Neon HTTP
+integrations.
 
 ## License
 
