@@ -11,12 +11,12 @@
       "dependencies": {
         "@absolutejs/manifest": "^0.1.0",
         "@sinclair/typebox": "^0.34.0",
-        "drizzle-orm": "1.0.0-rc.4",
       },
       "devDependencies": {
         "@absolutejs/errors": "^0.3.0",
         "@electric-sql/pglite": "0.3.14",
         "@types/bun": "1.3.14",
+        "drizzle-orm": "1.0.0-rc.4",
         "effect": "^3.21.4",
         "postgres": "^3.4.9",
         "prettier": "3.5.3",
@@ -25,6 +25,7 @@
       "peerDependencies": {
         "@absolutejs/errors": ">= 0.3.0",
         "@neondatabase/serverless": ">= 0.10.0",
+        "drizzle-orm": ">=1.0.0-rc.4 <2",
         "effect": "^3.21.0",
         "postgres": "^3.0.0",
       },

@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/errors-postgres",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors with first-class Drizzle and tagged-template adapters.",
   "repository": {
     "type": "git",
@@ -45,7 +45,8 @@
     "@absolutejs/errors": ">= 0.3.0",
     "@neondatabase/serverless": ">= 0.10.0",
     "effect": "^3.21.0",
-    "postgres": "^3.0.0"
+    "postgres": "^3.0.0",
+    "drizzle-orm": ">=1.0.0-rc.4 <2"
   },
   "peerDependenciesMeta": {
     "@neondatabase/serverless": {
@@ -62,7 +63,8 @@
     "effect": "^3.21.4",
     "postgres": "^3.4.9",
     "prettier": "3.5.3",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "drizzle-orm": "1.0.0-rc.4"
   },
   "exports": {
     ".": {
@@ -83,7 +85,6 @@
   ],
   "dependencies": {
     "@absolutejs/manifest": "^0.1.0",
-    "@sinclair/typebox": "^0.34.0",
-    "drizzle-orm": "1.0.0-rc.4"
+    "@sinclair/typebox": "^0.34.0"
   }
 }
