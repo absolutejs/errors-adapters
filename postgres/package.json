@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/errors-postgres",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors with first-class Drizzle and tagged-template adapters.",
   "repository": {
     "type": "git",
@@ -18,7 +18,40 @@
   "license": "Apache-2.0",
   "author": "Alex Kahn",
   "absolutejs": {
-    "manifestContract": 1
+    "manifestContract": 2,
+    "runtimePeers": {
+      "@absolutejs/errors": {
+        "artifactImports": [
+          "@absolutejs/errors"
+        ],
+        "buildExternals": [
+          "@absolutejs/errors"
+        ],
+        "range": ">=0.6.0 <0.7.0",
+        "tested": "0.6.0"
+      },
+      "drizzle-orm": {
+        "artifactImports": [
+          "drizzle-orm",
+          "drizzle-orm/pg-core"
+        ],
+        "buildExternals": [
+          "drizzle-orm"
+        ],
+        "range": ">=1.0.0-rc.4 <2",
+        "tested": "1.0.0-rc.4"
+      },
+      "effect": {
+        "artifactImports": [
+          "effect"
+        ],
+        "buildExternals": [
+          "effect"
+        ],
+        "range": ">=3.22.0 <4",
+        "tested": "3.22.0"
+      }
+    }
   },
   "publishConfig": {
     "access": "public"
@@ -42,29 +75,19 @@
     "release": "bun run format && bun run build && bun publish"
   },
   "peerDependencies": {
-    "@absolutejs/errors": ">= 0.3.0",
-    "@neondatabase/serverless": ">= 0.10.0",
-    "effect": "^3.21.0",
-    "postgres": "^3.0.0",
-    "drizzle-orm": ">=1.0.0-rc.4 <2"
-  },
-  "peerDependenciesMeta": {
-    "@neondatabase/serverless": {
-      "optional": true
-    },
-    "postgres": {
-      "optional": true
-    }
+    "@absolutejs/errors": ">=0.6.0 <0.7.0",
+    "drizzle-orm": ">=1.0.0-rc.4 <2",
+    "effect": ">=3.22.0 <4"
   },
   "devDependencies": {
-    "@absolutejs/errors": "^0.3.0",
+    "@absolutejs/errors": "0.6.0",
     "@electric-sql/pglite": "0.3.14",
     "@types/bun": "1.3.14",
-    "effect": "^3.21.4",
-    "postgres": "^3.4.9",
+    "drizzle-orm": "1.0.0-rc.4",
+    "effect": "3.22.0",
+    "postgres": "3.4.9",
     "prettier": "3.5.3",
-    "typescript": "5.8.3",
-    "drizzle-orm": "1.0.0-rc.4"
+    "typescript": "5.8.3"
   },
   "exports": {
     ".": {
@@ -84,7 +107,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@absolutejs/manifest": "^0.1.0",
+    "@absolutejs/manifest": "^0.7.1",
     "@sinclair/typebox": "^0.34.0"
   }
 }

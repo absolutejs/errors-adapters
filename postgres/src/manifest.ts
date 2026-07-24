@@ -5,7 +5,7 @@ import type { CreatePostgresIssueStoreOptions } from "./index";
 /* `sql` is instance-valued (the tag-template client) → built in the wiring
  * from DATABASE_URL; only tablePrefix/ensureSchema are settings. */
 export const manifest = defineManifest<CreatePostgresIssueStoreOptions>()({
-  contract: 1,
+  contract: 2,
   identity: {
     accent: "#336791",
     category: "observability",
@@ -24,12 +24,12 @@ export const manifest = defineManifest<CreatePostgresIssueStoreOptions>()({
         peers: [
           {
             name: "drizzle-orm",
-            range: ">=1.0.0-rc.4",
+            range: ">=1.0.0-rc.4 <2",
             reason: "Schema-derived Postgres persistence",
           },
           {
             name: "effect",
-            range: "^3.21.0",
+            range: ">=3.22.0 <4",
             reason: "Effect runtime shared with @absolutejs/errors",
           },
         ],
@@ -69,13 +69,13 @@ export const manifest = defineManifest<CreatePostgresIssueStoreOptions>()({
         peers: [
           {
             name: "@neondatabase/serverless",
-            range: ">=0.10.0",
+            range: ">=1.1.0 <2",
             reason:
               "HTTP tag-template Postgres client (swap for `postgres` over TCP if you prefer)",
           },
           {
             name: "effect",
-            range: "^3.21.0",
+            range: ">=3.22.0 <4",
             reason: "Effect runtime shared with @absolutejs/errors",
           },
         ],
