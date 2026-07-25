@@ -4,7 +4,7 @@
   "description": "Postgres-backed, Effect-native IssueStore for @absolutejs/errors with first-class Drizzle and tagged-template adapters.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/absolutejs/errors-adapters.git",
+    "url": "git+https://github.com/absolutejs/errors-adapters.git",
     "directory": "postgres"
   },
   "homepage": "https://github.com/absolutejs/errors-adapters/tree/main/postgres",
