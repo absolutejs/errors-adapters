@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2 — 2026-07-28
+
+- Passes Drizzle `tags` and `extra` values to database drivers as native
+  objects so Bun SQL persists JSONB objects rather than JSONB string scalars.
+- Adds unit and disposable-Postgres regression coverage for the JSONB driver
+  boundary.
+
 ## 0.0.5 — 2026-07-23
 
 - Adds package-owned `errorIssues` and `errorEvents` Drizzle tables.

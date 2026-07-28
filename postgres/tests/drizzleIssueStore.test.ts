@@ -7,7 +7,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { beforeEach, describe, expect, test } from "bun:test";
 import { drizzle } from "drizzle-orm/pglite";
 import { Effect, Option } from "effect";
-import { createDrizzleIssueStore } from "../src/drizzle";
+import { createDrizzleIssueStore, errorEvents } from "../src/drizzle";
 
 const run = <Value>(
   effect: Effect.Effect<Value, IssueStoreError>,
@@ -44,6 +44,11 @@ beforeEach(async () => {
 });
 
 describe("createDrizzleIssueStore", () => {
+  test("passes JSONB event context to database drivers as native values", () => {
+    const canary = { component: "test" };
+    expect(errorEvents.tags.mapToDriverValue(canary)).toBe(canary);
+  });
+
   test("groups, escalates, and detects resolved regressions atomically", async () => {
     expect((await run(store.record(event()))).isNew).toBe(true);
     await run(store.record(event({ at: 2_000, level: "fatal" })));

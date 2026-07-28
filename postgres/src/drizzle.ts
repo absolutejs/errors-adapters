@@ -37,7 +37,7 @@ const portableJsonb = customType<{ data: unknown; driverData: unknown }>({
   dataType: () => "jsonb",
   fromDriver: (value) =>
     typeof value === "string" ? JSON.parse(value) : value,
-  toDriver: (value) => JSON.stringify(value),
+  toDriver: (value) => value,
 });
 
 export const errorIssues = pgTable(

@@ -40,6 +40,8 @@ const store = createDrizzleIssueStore({ db });
 The Drizzle store uses transactions for atomic event/group updates, portable
 native JSONB for tags and extra context, row locking for regression detection,
 and the same Effect error channel as the tagged-template adapter.
+JSONB values are passed to Drizzle drivers as native objects (rather than
+pre-serialized strings), preventing Bun SQL from storing them as JSON strings.
 
 ### Tagged-template compatibility
 
