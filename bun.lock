@@ -7,13 +7,13 @@
     },
     "postgres": {
       "name": "@absolutejs/errors-postgres",
-      "version": "0.1.1",
+      "version": "0.1.3",
       "dependencies": {
         "@absolutejs/manifest": "^0.7.2",
         "@sinclair/typebox": "^0.34.0",
       },
       "devDependencies": {
-        "@absolutejs/errors": "0.6.1",
+        "@absolutejs/errors": "0.7.0",
         "@electric-sql/pglite": "0.3.14",
         "@types/bun": "1.3.14",
         "drizzle-orm": "1.0.0-rc.4",
@@ -23,16 +23,18 @@
         "typescript": "5.8.3",
       },
       "peerDependencies": {
-        "@absolutejs/errors": ">=0.6.0 <0.7.0",
+        "@absolutejs/errors": ">=0.7.0 <0.8.0",
         "drizzle-orm": ">=1.0.0-rc.4 <2",
         "effect": ">=3.22.0 <4",
       },
     },
   },
   "packages": {
-    "@absolutejs/errors": ["@absolutejs/errors@0.6.1", "", { "dependencies": { "@absolutejs/manifest": "^0.7.2", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": ">=1.4.29 <2" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-tHJNrYxw5ZBt36qTarI6+f17Lr98AIrFGS/CiwLiNW6bpaf9uqWkmiTVBokM7NHFocTb5Tqy3MA+ZqCx0nTQaA=="],
+    "@absolutejs/errors": ["@absolutejs/errors@0.7.0", "", { "dependencies": { "@absolutejs/handoff": "0.1.0", "@absolutejs/manifest": "^0.7.2", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": ">=1.4.29 <2" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-C8cULWvGznMv/3wfmE3sKOGHTprbzwlf18ZqFiPUdMqdK4NZnMBOqTslLcdSv2bAahzk/cKJUMK9TaxBUBIjfw=="],
 
     "@absolutejs/errors-postgres": ["@absolutejs/errors-postgres@workspace:postgres"],
+
+    "@absolutejs/handoff": ["@absolutejs/handoff@0.1.0", "", { "dependencies": { "@absolutejs/manifest": "0.7.2", "@sinclair/typebox": "0.34.52" } }, "sha512-P9Wr2oyYBcj7mriCV4h9zRlLGijee/7DW8USVkl/m4ovql7zpITy547jy6j8+HC5v5Ocs+TVcMYmrROEEBupNg=="],
 
     "@absolutejs/manifest": ["@absolutejs/manifest@0.7.2", "", { "peerDependencies": { "@sinclair/typebox": ">=0.34.0 <0.35.0" }, "bin": { "absolute-manifest": "dist/cli.js" } }, "sha512-NSVzC4yHbH+n+WCNdWYrpbc+3k5rOfO4X85Ku9VCP8teRaa2VEibp29Cyvg9rQARUGaQjGGTz+l+APqM0+odxg=="],
 
