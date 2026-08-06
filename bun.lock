@@ -7,13 +7,13 @@
     },
     "postgres": {
       "name": "@absolutejs/errors-postgres",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "dependencies": {
         "@absolutejs/manifest": "^0.7.2",
         "@sinclair/typebox": "^0.34.0",
       },
       "devDependencies": {
-        "@absolutejs/errors": "0.7.0",
+        "@absolutejs/errors": "0.8.1",
         "@electric-sql/pglite": "0.3.14",
         "@types/bun": "1.3.14",
         "drizzle-orm": "1.0.0-rc.4",
@@ -23,14 +23,14 @@
         "typescript": "5.8.3",
       },
       "peerDependencies": {
-        "@absolutejs/errors": ">=0.7.0 <0.8.0",
+        "@absolutejs/errors": ">=0.7.0 <0.9.0",
         "drizzle-orm": ">=1.0.0-rc.4 <2",
         "effect": ">=3.22.0 <4",
       },
     },
   },
   "packages": {
-    "@absolutejs/errors": ["@absolutejs/errors@0.7.0", "", { "dependencies": { "@absolutejs/handoff": "0.1.0", "@absolutejs/manifest": "^0.7.2", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": ">=1.4.29 <2" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-C8cULWvGznMv/3wfmE3sKOGHTprbzwlf18ZqFiPUdMqdK4NZnMBOqTslLcdSv2bAahzk/cKJUMK9TaxBUBIjfw=="],
+    "@absolutejs/errors": ["@absolutejs/errors@0.8.1", "", { "dependencies": { "@absolutejs/handoff": "0.1.0", "@absolutejs/manifest": "^0.7.2", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": ">=1.4.29 <2" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-RsLoTuamdE6nCm4+bHTAnJKKb1192gRPemIM/pvkLRUXZh4128SFkVAteO+wtbDtN192/lFtmfa31FHnNMB8HQ=="],
 
     "@absolutejs/errors-postgres": ["@absolutejs/errors-postgres@workspace:postgres"],
 
