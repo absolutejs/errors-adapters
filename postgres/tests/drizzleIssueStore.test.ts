@@ -31,7 +31,9 @@ beforeEach(async () => {
       culprit text, level text NOT NULL, state text NOT NULL DEFAULT 'unresolved',
       environment text, first_seen bigint NOT NULL, last_seen bigint NOT NULL,
       times_seen bigint NOT NULL DEFAULT 1, first_release text, last_release text,
-      assignee text, PRIMARY KEY (project, fingerprint)
+      assignee text, resolved_at bigint, resolved_by text,
+      resolved_release text, resolution_note text,
+      PRIMARY KEY (project, fingerprint)
     );
     CREATE TABLE error_events (
       id bigserial PRIMARY KEY, project text NOT NULL, fingerprint text NOT NULL,

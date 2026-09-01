@@ -113,9 +113,49 @@ Indexes: `(project, last_seen DESC)` and `(project, state)` on issues;
 (→ `@absolutejs/replay`) are stored per event so a dashboard can cross-link
 an issue to its exact trace and DOM replay.
 
+`error_issues` also carries the resolution trail — `resolved_at`,
+`resolved_by`, `resolved_release`, `resolution_note` — which the triage board
+writes when an issue is closed. `ensureSchema` adds them to an existing table;
+an application that owns its schema through migrations must add them itself
+before upgrading, because the store writes every column it knows about.
+
 Choose the schema-derived Drizzle store for application-managed databases or
 the raw tagged-template compatibility store for lightweight and Neon HTTP
 integrations.
+
+## Triage
+
+The store answers "what broke and how often". A board on top of it has to
+answer what a person actually asks in front of it: what is breaking now, who is
+on it, did the fix hold, which release introduced this. `createIssueTriage`
+is those queries, bound to one project.
+
+```ts
+import { createIssueTriage } from "@absolutejs/errors-postgres";
+
+const triage = createIssueTriage({ db, project: "acme" });
+
+await triage.list({ severity: "error", state: "unresolved" });
+await triage.get(fingerprint); // issue + recent events
+await triage.occurrences(fingerprint, 14); // zero-filled daily sparkline
+await triage.stateCounts(); // numbers for the filter chips
+await triage.setState(fingerprint, "resolved", { by, note, release });
+await triage.assign(fingerprint, "alex");
+await triage.releaseStats(["sha1", "sha2"]);
+```
+
+A **regression** is derived, not stored: the ingest upsert flips a resolved
+issue back to `unresolved` when it recurs but leaves `resolved_at` in place, so
+unresolved + a resolution stamp + activity after it means the fix did not hold.
+`setState` clears the trail on reopen, because a manual reopen is a decision
+rather than a failed fix — and a surviving stamp would make the next
+recurrence look like one.
+
+`releaseStats` is the per-release rollup a deployments ledger needs: for each
+release, how many issues were introduced under it, carried in from before it,
+came back in it, or were declared fixed in it — split by severity, because a
+deploy that introduced three warnings is not the same news as one that
+introduced three errors. Each issue lands in exactly one bucket per release.
 
 ## License
 

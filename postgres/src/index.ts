@@ -43,6 +43,20 @@ export {
   errorIssues,
   type CreateDrizzleIssueStoreOptions,
 } from "./drizzle";
+export {
+  createIssueTriage,
+  emptyReleaseIssueReport,
+  toTriageIssue,
+  type CreateIssueTriageOptions,
+  type IssueListQuery,
+  type IssueOccurrence,
+  type IssueSeverity,
+  type IssueTriage,
+  type ReleaseIssueReport,
+  type ReleaseIssueStats,
+  type SetIssueStateOptions,
+  type TriageIssue,
+} from "./triage";
 
 /**
  * A `postgres-js` (`postgres('…')`) or Neon serverless (`neon('…')`)
@@ -222,8 +236,19 @@ export const createPostgresIssueStore = (
 						first_release text,
 						last_release  text,
 						assignee      text,
+						resolved_at   bigint,
+						resolved_by   text,
+						resolved_release text,
+						resolution_note  text,
 						PRIMARY KEY (project, fingerprint)
 					);
+					-- CREATE TABLE IF NOT EXISTS leaves an existing table alone,
+					-- so a store created before the resolution trail existed
+					-- would silently never gain these columns.
+					ALTER TABLE ${issues} ADD COLUMN IF NOT EXISTS resolved_at bigint;
+					ALTER TABLE ${issues} ADD COLUMN IF NOT EXISTS resolved_by text;
+					ALTER TABLE ${issues} ADD COLUMN IF NOT EXISTS resolved_release text;
+					ALTER TABLE ${issues} ADD COLUMN IF NOT EXISTS resolution_note text;
 					CREATE INDEX IF NOT EXISTS ${issues}_last_seen_idx ON ${issues} (project, last_seen DESC);
 					CREATE INDEX IF NOT EXISTS ${issues}_state_idx     ON ${issues} (project, state);
 					CREATE TABLE IF NOT EXISTS ${events} (

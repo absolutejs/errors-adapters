@@ -53,6 +53,16 @@ export const errorIssues = pgTable(
     last_seen: bigint({ mode: "number" }).notNull(),
     level: text().$type<StoredEvent["level"]>().notNull(),
     project: text().notNull(),
+    // The resolution trail. `setState` alone answers "is this closed"; a
+    // triage board also has to answer "who closed it, when, why, and in which
+    // release" — and crucially, whether a fix held. `resolved_at` survives the
+    // ingest upsert flipping a recurring issue back to `unresolved`, which is
+    // what makes a regression detectable at all: unresolved, with a resolution
+    // stamp, and activity after it.
+    resolution_note: text(),
+    resolved_at: bigint({ mode: "number" }),
+    resolved_by: text(),
+    resolved_release: text(),
     state: text().$type<IssueState>().notNull().default("unresolved"),
     times_seen: bigint({ mode: "number" }).notNull().default(1),
     title: text().notNull(),
