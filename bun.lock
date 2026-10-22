@@ -7,13 +7,13 @@
     },
     "postgres": {
       "name": "@absolutejs/errors-postgres",
-      "version": "0.1.4",
+      "version": "0.2.0",
       "dependencies": {
-        "@absolutejs/manifest": "^0.7.2",
+        "@absolutejs/manifest": "^0.9.0",
         "@sinclair/typebox": "^0.34.0",
       },
       "devDependencies": {
-        "@absolutejs/errors": "0.8.1",
+        "@absolutejs/errors": "0.10.0",
         "@electric-sql/pglite": "0.3.14",
         "@types/bun": "1.3.14",
         "drizzle-orm": "1.0.0-rc.4",
@@ -23,20 +23,20 @@
         "typescript": "5.8.3",
       },
       "peerDependencies": {
-        "@absolutejs/errors": ">=0.7.0 <0.9.0",
+        "@absolutejs/errors": ">=0.9.0 <0.11.0",
         "drizzle-orm": ">=1.0.0-rc.4 <2",
         "effect": ">=3.22.0 <4",
       },
     },
   },
   "packages": {
-    "@absolutejs/errors": ["@absolutejs/errors@0.8.1", "", { "dependencies": { "@absolutejs/handoff": "0.1.0", "@absolutejs/manifest": "^0.7.2", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": ">=1.4.29 <2" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-RsLoTuamdE6nCm4+bHTAnJKKb1192gRPemIM/pvkLRUXZh4128SFkVAteO+wtbDtN192/lFtmfa31FHnNMB8HQ=="],
+    "@absolutejs/errors": ["@absolutejs/errors@0.10.0", "", { "dependencies": { "@absolutejs/handoff": "0.1.0", "@absolutejs/manifest": "^0.9.0", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "@jridgewell/trace-mapping": ">=0.3.31 <0.4", "effect": ">=3.22.0 <4", "elysia": "^2.0.0-rc.0" }, "optionalPeers": ["@jridgewell/trace-mapping", "elysia"] }, "sha512-BB/CB0XKcpiY71rq/8FcoYhAoFxrq+wGUS7XlnMwkeT+6YwukdCoWYbRfpFeffGrblWvegCBmaYtghAveUywAg=="],
 
     "@absolutejs/errors-postgres": ["@absolutejs/errors-postgres@workspace:postgres"],
 
     "@absolutejs/handoff": ["@absolutejs/handoff@0.1.0", "", { "dependencies": { "@absolutejs/manifest": "0.7.2", "@sinclair/typebox": "0.34.52" } }, "sha512-P9Wr2oyYBcj7mriCV4h9zRlLGijee/7DW8USVkl/m4ovql7zpITy547jy6j8+HC5v5Ocs+TVcMYmrROEEBupNg=="],
 
-    "@absolutejs/manifest": ["@absolutejs/manifest@0.7.2", "", { "peerDependencies": { "@sinclair/typebox": ">=0.34.0 <0.35.0" }, "bin": { "absolute-manifest": "dist/cli.js" } }, "sha512-NSVzC4yHbH+n+WCNdWYrpbc+3k5rOfO4X85Ku9VCP8teRaa2VEibp29Cyvg9rQARUGaQjGGTz+l+APqM0+odxg=="],
+    "@absolutejs/manifest": ["@absolutejs/manifest@0.9.0", "", { "peerDependencies": { "@sinclair/typebox": ">=0.34.0 <0.35.0" }, "bin": { "absolute-manifest": "dist/cli.js" } }, "sha512-naNDdwNoWQgJ3HuFbAu1UcOVR7SGpLBJz/seO8MMX32vrxk6esgzY7OB1CL8YDOegtI/EqQfcvnulnP66A9aGg=="],
 
     "@electric-sql/pglite": ["@electric-sql/pglite@0.3.14", "", {}, "sha512-3DB258dhqdsArOI1fIt7cb9RpUOgcDg5hXWVgVHAeqVQ/qxtFy605QKs4gx6mFq3jWsSPqDN8TgSEsqC3OfV9Q=="],
 
@@ -66,6 +66,6 @@
 
     "undici-types": ["undici-types@8.3.0", "", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 
-    "drizzle-orm/effect": ["effect@3.21.4", "", { "dependencies": { "@standard-schema/spec": "^1.0.0", "fast-check": "^3.23.1" } }, "sha512-B89v/xSgPbl1J2Ai2u18jxq3odpFauU1rC6/eSs4FeNHi72kwKdJp12VGigvRV2lK+kRnx+OOz41XV8guZd4gQ=="],
+    "@absolutejs/handoff/@absolutejs/manifest": ["@absolutejs/manifest@0.7.2", "", { "peerDependencies": { "@sinclair/typebox": ">=0.34.0 <0.35.0" }, "bin": { "absolute-manifest": "dist/cli.js" } }, "sha512-NSVzC4yHbH+n+WCNdWYrpbc+3k5rOfO4X85Ku9VCP8teRaa2VEibp29Cyvg9rQARUGaQjGGTz+l+APqM0+odxg=="],
   }
 }
