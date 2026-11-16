@@ -46,6 +46,7 @@ export {
 export {
   createIssueTriage,
   emptyReleaseIssueReport,
+  PERFORMANCE_ISSUE_TITLES,
   toTriageIssue,
   type CreateIssueTriageOptions,
   type IssueListQuery,
