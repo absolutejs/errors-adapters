@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 — 2026-11-16
+
+- `IssueListQuery` takes `levels`: exactly these levels, so a board can
+  filter info apart from warning (`severity: "warning"` groups both). Applied
+  together with `severity` when both are given.
+- Exports the `IssueLevel` type.
+
 ## 0.3.0 — 2026-11-16
 
 - `createIssueTriage` takes `excludeTitles`: issues whose title contains any

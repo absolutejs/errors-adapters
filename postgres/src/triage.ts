@@ -41,7 +41,7 @@ const DEFAULT_OCCURRENCE_DAYS = 14;
 
 /** Levels grouped so that "errors" and "warnings" together cover every issue
  *  and none is unreachable from the filter chips. */
-type IssueLevel = StoredEvent["level"];
+export type IssueLevel = StoredEvent["level"];
 const ERROR_LEVELS: IssueLevel[] = ["error", "fatal"];
 const WARNING_LEVELS: IssueLevel[] = ["warning", "info"];
 
@@ -124,7 +124,11 @@ export type IssueListQuery = {
   /** Issues touching this release: first seen, last seen, or declared fixed
    *  under it — the deep link from a deployments page. */
   release?: string;
+  /** Errors (fatal and error) or warnings (warning and info). */
   severity?: IssueSeverity;
+  /** Exactly these levels, for a filter that separates info from warning.
+   *  Applied with `severity` when both are given. */
+  levels?: readonly IssueLevel[];
   state?: IssueState;
 };
 
@@ -291,6 +295,8 @@ export const createIssueTriage = <DB extends AnyPgDatabase>(
       filters.push(inArray(errorIssues.level, ERROR_LEVELS));
     else if (query.severity === "warning")
       filters.push(inArray(errorIssues.level, WARNING_LEVELS));
+    if (query.levels !== undefined && query.levels.length > 0)
+      filters.push(inArray(errorIssues.level, [...query.levels]));
 
     const where = and(...filters);
     const [rows, [totalRow]] = await Promise.all([
