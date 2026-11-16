@@ -184,6 +184,18 @@ describe("list", () => {
 });
 
 describe("setState", () => {
+  test("a levels filter separates info from warning", async () => {
+    await seedIssue({ fingerprint: "fp-info", level: "info" });
+    await seedIssue({ fingerprint: "fp-warning", level: "warning" });
+    await seedIssue({ fingerprint: "fp-error", level: "error" });
+
+    const info = await triage.list({ levels: ["info"] });
+    expect(info.issues.map((issue) => issue.fingerprint)).toEqual(["fp-info"]);
+    expect(info.total).toBe(1);
+    const both = await triage.list({ levels: ["warning", "info"] });
+    expect(both.total).toBe(2);
+  });
+
   test("excluded titles are left out of the page, its total and the state counts", async () => {
     await seedIssue({ fingerprint: "fp-slow", title: "Error: Slow response" });
     await seedIssue({

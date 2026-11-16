@@ -49,6 +49,7 @@ export {
   PERFORMANCE_ISSUE_TITLES,
   toTriageIssue,
   type CreateIssueTriageOptions,
+  type IssueLevel,
   type IssueListQuery,
   type IssueOccurrence,
   type IssueSeverity,
