@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.0 — 2026-11-16
+
+- `createIssueTriage` takes `excludeTitles`: issues whose title contains any
+  of them (case-insensitive, `%` and `_` matched as text) are left out of the
+  list, its total and the state counts, in the query itself. The older
+  `exclude` predicate filtered a page after it was fetched, so pages came back
+  short and the counts still included what it dropped.
+- Exports `PERFORMANCE_ISSUE_TITLES`: the slow response, slow interaction,
+  slow resource, slow route p95, Web Vital regression, slow query, pool
+  saturation and cache hit-rate titles error tracking filed as issues before
+  latency moved to a Performance page. Pair it with
+  `reliabilitySignalPreset` from `@absolutejs/beacon/policy`, which stops the
+  browser filing them.
+
 ## 0.2.0 — 2026-10-22
 
 - Adds `createIssueTriage`: the regression, sparkline, grouping and

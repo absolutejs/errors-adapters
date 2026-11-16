@@ -8,7 +8,12 @@
 import { PGlite } from "@electric-sql/pglite";
 import { beforeEach, describe, expect, test } from "bun:test";
 import { drizzle } from "drizzle-orm/pglite";
-import { createIssueTriage, errorEvents, errorIssues } from "../src/index";
+import {
+  createIssueTriage,
+  errorEvents,
+  errorIssues,
+  PERFORMANCE_ISSUE_TITLES,
+} from "../src/index";
 
 const DAY_MS = 86_400_000;
 
@@ -179,6 +184,47 @@ describe("list", () => {
 });
 
 describe("setState", () => {
+  test("excluded titles are left out of the page, its total and the state counts", async () => {
+    await seedIssue({ fingerprint: "fp-slow", title: "Error: Slow response" });
+    await seedIssue({
+      fingerprint: "fp-vital",
+      state: "resolved",
+      title: "Web Vital regression: LCP on /",
+    });
+    await seedIssue({
+      fingerprint: "fp-real",
+      title: "TypeError: x is undefined",
+    });
+    const board = createIssueTriage({
+      db,
+      excludeTitles: PERFORMANCE_ISSUE_TITLES,
+      project: "acme",
+    });
+
+    const page = await board.list({ limit: 1 });
+    expect(page.issues.map((issue) => issue.fingerprint)).toEqual(["fp-real"]);
+    expect(page.total).toBe(1);
+    expect(await board.stateCounts()).toEqual([
+      { count: 1, state: "unresolved" },
+    ]);
+  });
+
+  test("an excluded title matches its text, not wildcards", async () => {
+    await seedIssue({
+      fingerprint: "fp-literal",
+      title: "Error: 50% of queries",
+    });
+    await seedIssue({ fingerprint: "fp-other", title: "Error: 50 of queries" });
+    const board = createIssueTriage({
+      db,
+      excludeTitles: ["50% of"],
+      project: "acme",
+    });
+
+    const { issues } = await board.list();
+    expect(issues.map((issue) => issue.fingerprint)).toEqual(["fp-other"]);
+  });
+
   test("closing stamps the trail and reopening clears it", async () => {
     await seedIssue({ fingerprint: "fp-1" });
     const resolved = await triage.setState("fp-1", "resolved", {

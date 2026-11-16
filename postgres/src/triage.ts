@@ -23,6 +23,7 @@ import {
   ilike,
   inArray,
   isNotNull,
+  notIlike,
   or,
   sql,
   type SQL,
@@ -194,9 +195,45 @@ export type CreateIssueTriageOptions<DB extends AnyPgDatabase> = {
   /**
    * Rows this board does not triage — a title pattern for telemetry an older
    * release wrote into the issues table, say. Applied to every read.
+   *
+   * Runs on the rows a page returns, after the query: a page can come back
+   * short and the totals and state counts still include the rows it drops.
+   * Prefer `excludeTitles`, which the database applies.
    */
   exclude?: (row: typeof errorIssues.$inferSelect) => boolean;
+  /**
+   * Leave out issues whose title contains any of these (case-insensitive),
+   * from the list, its total and the state counts alike, because the
+   * database applies them. `PERFORMANCE_ISSUE_TITLES` names what was filed as
+   * an issue before latency moved to a Performance page.
+   */
+  excludeTitles?: readonly string[];
 };
+
+/**
+ * Titles of performance measurements that error tracking used to file as
+ * issues (a slow response, a slow route's p95, a Web Vital regression, a slow
+ * query, pool saturation, a cache hit-rate drop). An application with a
+ * Performance page reads latency there and turns the signals off at the source
+ * (`reliabilitySignalPreset` in `@absolutejs/beacon/policy`); passing these as
+ * `excludeTitles` keeps the issues they already filed off the board.
+ */
+export const PERFORMANCE_ISSUE_TITLES: readonly string[] = [
+  "Slow response",
+  "Slow interaction",
+  "Slow resource",
+  // errors <=0.3.5 normalized title digits to "p0"; later releases keep them.
+  "Slow route p95:",
+  "Slow route p0:",
+  "Web Vital regression:",
+  "Slow query over budget:",
+  "Connection pool near saturation",
+  "Cache hit-rate dropped:",
+];
+
+/* `%` and `_` in a title are text, not wildcards. */
+const containing = (text: string) =>
+  `%${text.replace(/[\\%_]/g, (character) => `\\${character}`)}%`;
 
 /**
  * The queries behind an issue board, bound to one project.
@@ -215,6 +252,7 @@ export const createIssueTriage = <DB extends AnyPgDatabase>(
     deployedOnly = true,
     eventSamples = DEFAULT_EVENT_SAMPLES,
     exclude,
+    excludeTitles = [],
     maxLimit = DEFAULT_MAX_LIMIT,
     project,
   } = options;
@@ -222,6 +260,8 @@ export const createIssueTriage = <DB extends AnyPgDatabase>(
   const scope = (): SQL[] => {
     const filters: SQL[] = [eq(errorIssues.project, project)];
     if (deployedOnly) filters.push(isNotNull(errorIssues.last_release));
+    for (const title of excludeTitles)
+      filters.push(notIlike(errorIssues.title, containing(title)));
 
     return filters;
   };
